@@ -1,12 +1,12 @@
 import { ObjectId } from "mongodb";
 import dayjs from "dayjs";
 import db from "../db.js";
-import joi from "joi";
+// import joi from "joi";
 
 // const titleSchema = joi.object({ title: joi.string().required().min(1) });
 
 export async function createChoice(req, res) {
-  const { title, pollid } = req.body;
+  const { title, pollId } = req.body;
 
 //   const validation = titleSchema.validate(req.body, { abortEarly: false });
 //   if (validation.error) {
@@ -19,7 +19,7 @@ if(!title){
 };
 
   try {
-      const findId = await db.collection("poll").findOne({ _id: ObjectId(pollid) });
+      const findId = await db.collection("poll").findOne({ _id: ObjectId(pollId) });
       if (!findId) {
         return res.status(404).send("Enquete inexistente");
       };
@@ -34,10 +34,12 @@ if(!title){
         return res.status(403).send('Enquete expirou!');
     };
 
-await db.collection("choice").insertOne({title: title, pollid: pollid})
+await db.collection("choice").insertOne({title: title, pollId: pollId})
 const send =  await db.collection("choice").find({title}).toArray()
     res.status(201).send(send)
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
 }
 
 export async function getChoice(req, res) {
@@ -51,12 +53,12 @@ if(!poll){
     return res.status(404).send("Enquete não existe");
 }
 
-const choice = await db.collection("choice").findOne({pollid: id}).toArray()
+const choice = await db.collection("choice").find({pollId: id}).toArray();
 res.status(200).send(choice)
 
 
     } catch (error) {
-        
+      res.status(500).send(error.message);
     }
     
 }

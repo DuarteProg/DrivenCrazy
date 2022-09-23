@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import {createPoll, getPoll} from "./src/Controllers/pollcontrollers.js"
 import {createChoice, getChoice} from "./src/Controllers/choicecontrollers.js"
+import {createVote, getResult} from "./src/Controllers/resultcontrollers.js"
 
 // import routesHome from './src/Routes/RoutesHome.js';
 
@@ -20,8 +21,8 @@ server.post('/poll', createPoll)
 server.get('/poll', getPoll)
 server.post('/choice', createChoice)
 server.get('/poll/:id/choice', getChoice)
-// server.post('/poll', createVote)
-// server.get('/poll', getResult)
+server.post('/choice/:id/vote', createVote)
+server.get('/poll/:id/result', getResult)
 
 
 
