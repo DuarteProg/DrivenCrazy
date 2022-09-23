@@ -2,6 +2,7 @@ import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import {createPoll, getPoll} from "./src/Controllers/pollcontrollers.js"
+import {createChoice, getChoice} from "./src/Controllers/choicecontrollers.js"
 
 // import routesHome from './src/Routes/RoutesHome.js';
 
@@ -17,8 +18,8 @@ server.use(json());
 //ROTAS:
 server.post('/poll', createPoll)
 server.get('/poll', getPoll)
-// server.post('/choice', createChoice)
-// server.get('/poll', getChoice)
+server.post('/choice', createChoice)
+server.get('/poll/:id/choice', getChoice)
 // server.post('/poll', createVote)
 // server.get('/poll', getResult)
 
