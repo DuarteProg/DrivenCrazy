@@ -1,22 +1,14 @@
 import dayjs from "dayjs";
 import db from "../db.js";
 
-import joi from "joi";
 
-const pollSchema = joi.object({
-  title: joi.string().required().min(1),
-  expireAt: joi.date(),
-});
 
 export async function createPoll(req, res) {
   const { title, expireAt } = req.body;
 
-  const validation = pollSchema.validate(req.body, { abortEarly: false });
-  if (validation.error) {
-    const erros = validation.error.details.map((detail) => detail.message);
-    res.status(422).send(erros);
-    return;
-  }
+  if(!title){
+    return res.status(422).send("Título inexistente");
+  };
 
   try {
     if (!expireAt) {

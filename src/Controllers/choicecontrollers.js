@@ -1,19 +1,12 @@
 import { ObjectId } from "mongodb";
 import dayjs from "dayjs";
 import db from "../db.js";
-// import joi from "joi";
 
-// const titleSchema = joi.object({ title: joi.string().required().min(1) });
 
 export async function createChoice(req, res) {
   const { title, pollId } = req.body;
 
-//   const validation = titleSchema.validate(req.body, { abortEarly: false });
-//   if (validation.error) {
-//     const erros = validation.error.details.map((detail) => detail.message);
-//     res.status(422).send(erros);
-//     return;
-//   }
+
 if(!title){
   return res.status(422).send("Título inexistente");
 };
@@ -34,7 +27,7 @@ if(!title){
         return res.status(403).send('Enquete expirou!');
     };
 
-await db.collection("choice").insertOne({title: title, pollId: pollId})
+await db.collection("choice").insertOne({title: title, pollId: ObjectId(pollId)})
 const send =  await db.collection("choice").find({title}).toArray()
     res.status(201).send(send)
   } catch (error) {
@@ -53,7 +46,7 @@ if(!poll){
     return res.status(404).send("Enquete não existe");
 }
 
-const choice = await db.collection("choice").find({pollId: id}).toArray();
+const choice = await db.collection("choice").find({pollId: ObjectId(id)}).toArray();
 res.status(200).send(choice)
 
 
