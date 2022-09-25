@@ -34,7 +34,6 @@ export async function getResult(req, res) {
   let mostvoted = 0;
   let title = "";
 
-
   try {
     const choice = await db
       .collection("choice")
@@ -45,7 +44,6 @@ export async function getResult(req, res) {
       return res.status(404).send("Opção inexistente");
     }
 
-    
     for (let i = 0; i < choice.length; i++) {
       const vote = await db
         .collection("vote")

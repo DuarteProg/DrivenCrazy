@@ -1,14 +1,12 @@
 import dayjs from "dayjs";
 import db from "../db.js";
 
-
-
 export async function createPoll(req, res) {
   const { title, expireAt } = req.body;
 
-  if(!title){
+  if (!title) {
     return res.status(422).send("Título inexistente");
-  };
+  }
 
   try {
     if (!expireAt) {
