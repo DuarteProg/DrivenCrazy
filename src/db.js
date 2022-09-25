@@ -14,7 +14,3 @@ try {
 }
 
 export default db;
-
-// user NElkeVDchnDW0hQg
-
-// mongodb+srv://user:NElkeVDchnDW0hQg@cluster0.h1fgsdo.mongodb.net/?retryWrites=true&w=majority
